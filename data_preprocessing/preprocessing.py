@@ -220,12 +220,33 @@ for index, row in df.iterrows():
         df.at[index, 'p1_unforced_error_times'] = p1_unforced_error_times
         df.at[index, 'p2_unforced_error_times'] = p2_unforced_error_times
 
+# add match_victor
+df['match_victor'] = 0
+
+# init var
+match_id = df['match_id'][0]
+match_count = 1
+init_index = 0
+
+for index, row in df.iterrows():
+    if row['match_id'] != match_id:
+        match_count += 1
+        print('in match ', match_count-1, ' match_victor is', df.loc[index - 1, 'set_victor']-1)
+
+        # add data to df['match_victor']
+        for i in range(init_index, index):
+            df.at[i, 'match_victor'] = df.loc[index - 1, 'set_victor']-1
+
+        # next index and match_id
+        init_index = index
+        match_id = row['match_id']
+
 
 # show df
 print(df.head(), '\n\n')
 
 
 # output csv
-df.to_csv('./out.csv', index=False)
+df.to_csv('./preprocessing_out.csv', index=False)
 
 
