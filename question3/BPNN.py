@@ -68,7 +68,7 @@ model = tf.keras.models.load_model(
 
 
 # Predict Data in a Match
-data_predict = pd.read_csv('./question3/match1.csv', header=None)
+data_predict = pd.read_csv('./question3/5_1304.csv', header=None)
 
 # Get Features
 X_predict = data_predict.iloc[:, 0:7]
@@ -86,15 +86,15 @@ binary_predictions = (predictions > threshold).astype(int)
 
 # Draw
 plt.figure(figsize=(18, 8))
-plt.axhline(y=0.5, color='yellow', linestyle='--')  # 画一条横线
+plt.axhline(y=0.5, color='orange', linestyle='--')  # 画一条横线
 plt.plot(predictions, label='trend', color='black', antialiased=True)
 plt.plot(binary_predictions, label='binary_predictions', color='red', antialiased=True)
-plt.title('2023-wimbledon-1304 Predictions')
+plt.title('2023-wimbledon-1304 With perturbation Predictions')
 plt.xlabel('Total Scores')
 plt.ylabel('Probability')
-plt.xticks(np.arange(0, 80, step=10))
+plt.xticks(np.arange(0, 70, step=10))
 plt.yticks(np.arange(0, 1.1, 0.1))
-plt.xlim(0, 70)
+plt.xlim(0, 60)
 plt.ylim(-0.1, 1.1)
 plt.legend()
 
